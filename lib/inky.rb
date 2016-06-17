@@ -18,14 +18,14 @@ module Inky
   def self.discover_inky_bin
     default_bin_name = 'inky'
     inky_bin = default_bin_name
-    # Check for a global install of MJML binary
+    # Check for a global install of Inky binary
     return inky_bin if check_version(default_bin_name)
 
-    # Check for a local install of MJML binary
+    # Check for a local install of Inky binary
     inky_bin = File.join(`npm bin`.chomp, default_bin_name)
     return inky_bin if check_version(inky_bin)
 
-    raise RuntimeError, "Couldn't find the MJML binary.. have you run $ npm install #{default_bin_name}?"
+    raise RuntimeError, "Couldn't find the Inky binary.. have you run $ npm install #{default_bin_name}?"
   end
 
   BIN = discover_inky_bin
