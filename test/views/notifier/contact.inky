@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <row>
+      <columns large="6">One Column</columns>
+      <columns large="6">Other Column</columns>
+    </row>
+
+    <%= "This is a number: #{ rand() } "%>
+  </body>
+</html>

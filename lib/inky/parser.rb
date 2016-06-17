@@ -1,4 +1,4 @@
-module Mjml
+module Inky
   class Parser
 
     # Create new parser
@@ -10,26 +10,25 @@ module Mjml
       file.close
     end
 
-    # Render mjml template
+    # Render inky template
     #
     # @return [String]
     def render
       result = run
       remove_tmp_files
       result
-    rescue
-
+    rescue => error
       ""
     end
 
-    # Exec mjml command
+    # Exec inky command
     #
     # @return [String] The result as string
     def run
-      command = "#{mjml_bin} -r #{in_tmp_file} -o #{out_tmp_file}"
-      # puts command
+      # TODO: Refactor this
+      command = "#{inky_bin} #{in_tmp_file} #{out_tmp_file}"
       `#{command}`
-      file = File.open(out_tmp_file, 'r')
+      file = File.open("#{out_tmp_file}/#{in_tmp_file.split('/').last}", 'r')
       str  = file.read
       file.close
       str
@@ -42,7 +41,7 @@ module Mjml
       # @return nil
       def remove_tmp_files
         FileUtils.rm(in_tmp_file)
-        FileUtils.rm(out_tmp_file)
+        FileUtils.rmdir(out_tmp_file)
         nil
       end
 
@@ -50,7 +49,7 @@ module Mjml
       #
       # @return [String]
       def tmp_dir
-        "/tmp"
+        '/tmp'
       end
 
       # Get parser tpm file to store result
@@ -58,7 +57,7 @@ module Mjml
       # @return [String]
       def out_tmp_file
 
-        @_out_tmp_file ||= "#{tmp_dir}/out_#{(0...8).map { (65 + rand(26)).chr }.join}.html"
+        @_out_tmp_file ||= "#{tmp_dir}/out_#{(0...8).map { (65 + rand(26)).chr }.join}"
       end
 
       # Get parser tpm file to get result
@@ -66,16 +65,16 @@ module Mjml
       # @return [String]
       def in_tmp_file
 
-        @_in_tmp_file ||= "#{tmp_dir}/in_#{(0...8).map { (65 + rand(26)).chr }.join}.mjml"
+        @_in_tmp_file ||= "#{tmp_dir}/in_#{(0...8).map { (65 + rand(26)).chr }.join}.inky"
         # puts @_in_tmp_file
         return @_in_tmp_file
       end
 
-      # Get mjml bin path
+      # Get inky-cli bin path
       #
       # @return [String]
-      def mjml_bin
-        Mjml::BIN
+      def inky_bin
+        Inky::BIN
       end
   end
 end

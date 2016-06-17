@@ -9,5 +9,5 @@ notifications:
   email: true
 before_script:
   - nvm install 5.0
-  - npm install mjml@^2.0
+  - npm install inky-cli@^1.0.1
   - npm install promise

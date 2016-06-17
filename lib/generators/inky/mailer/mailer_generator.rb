@@ -1,9 +1,9 @@
-require "rails/generators/erb/mailer/mailer_generator"
+require 'rails/generators/erb/mailer/mailer_generator'
 
-module Mjml
+module Inky
   module Generators
     class MailerGenerator < Erb::Generators::MailerGenerator
-      source_root File.expand_path("../templates", __FILE__)
+      source_root File.expand_path('../templates', __FILE__)
 
       protected
 
@@ -16,7 +16,7 @@ module Mjml
       end
 
       def handler
-        :mjml
+        :inky
       end
     end
   end
