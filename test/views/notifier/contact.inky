@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   </head>
   <body>
     <row>
@@ -11,5 +12,7 @@
     </row>
 
     <%= "This is a number: #{ rand() } "%>
+
+    <button type="button" name="button" class="btn btn-danger">DANGER</button>
   </body>
 </html>

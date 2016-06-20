@@ -28,7 +28,10 @@ module Inky
       # TODO: Refactor this
       command = "#{inky_bin} #{in_tmp_file} #{out_tmp_file}"
       `#{command}`
-      file = File.open("#{out_tmp_file}/#{in_tmp_file.split('/').last}", 'r')
+      path = "#{out_tmp_file}/#{in_tmp_file.split('/')[2].split('.')[0]}.html"
+      `mv #{out_tmp_file}/#{in_tmp_file.split('/')[2]} #{path}`
+      `juice --web-resources-scripts=true #{path} #{inliner_out_tmp_file}`
+      file = File.open(inliner_out_tmp_file, 'r')
       str  = file.read
       file.close
       str
@@ -57,7 +60,11 @@ module Inky
       # @return [String]
       def out_tmp_file
 
-        @_out_tmp_file ||= "#{tmp_dir}/out_#{(0...8).map { (65 + rand(26)).chr }.join}"
+        @_out_tmp_file ||= "#{tmp_dir}/out_#{(0...8).map { (65 + rand(26)).chr }.join}.html"
+      end
+
+      def inliner_out_tmp_file
+        @_inliner_out_tmp_file ||= "#{tmp_dir}/out_inliner_#{(0...8).map { (65 + rand(26)).chr }.join}"
       end
 
       # Get parser tpm file to get result

@@ -60,4 +60,11 @@ class InkyTest < ActiveSupport::TestCase
     assert_equal 'text/html', email.mime_type
     assert_match(/Hello World/, email.body.encoded.strip)
   end
+
+  test 'should inline styles' do
+    email = Notifier.contact('you@example.com', :inky)
+    assert_equal 'text/html', email.mime_type
+    assert(!email.body.encoded.strip.include?("<link rel=\"stylesheet\" type=\"text/css\" href=\"\/\/maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\">"))
+    assert_match(/-webkit-box-sizing: border-box; -moz-box-sizing: border-bo/, email.body.encoded.strip)
+  end
 end
